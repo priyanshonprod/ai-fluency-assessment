@@ -1478,31 +1478,46 @@ function buildResultsScreen() {
   ];
   const thermoEl = document.getElementById('stage-thermometer');
   thermoEl.innerHTML = '';
+  // Build as a table-like structure: left column has dots+lines, right column has labels
   stages.forEach((s,i) => {
     const isActive = total >= s.min && total <= s.max;
     const isPast = total > s.max;
-    // line before (except first)
+    const prevActive = i > 0 && (total > stages[i-1].max || (total >= stages[i-1].min && total <= stages[i-1].max));
+
+    // Line connecting to previous dot (except first)
     if (i > 0) {
+      const lineWrap = document.createElement('div');
+      lineWrap.style.cssText = 'display:flex;align-items:stretch;padding-left:6px;';
       const line = document.createElement('div');
-      line.style.cssText = `width:2px;height:16px;margin-left:6px;border-radius:1px;background:${isPast||isActive?s.color:'#E5E7EB'};`;
-      thermoEl.appendChild(line);
+      line.style.cssText = `width:2px;height:14px;background:${isPast||isActive?s.color:'#E5E7EB'};border-radius:1px;`;
+      lineWrap.appendChild(line);
+      thermoEl.appendChild(lineWrap);
     }
-    const item = document.createElement('div');
-    item.style.cssText = 'display:flex;align-items:center;gap:10px;';
+
+    // Dot + label row
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:10px;';
+
+    const dotSize = isActive ? 14 : 8;
+    const dotMargin = isActive ? 0 : 3; // center smaller dots with the 14px active dot
     const dot = document.createElement('div');
-    dot.style.cssText = `width:${isActive?14:8}px;height:${isActive?14:8}px;border-radius:50%;background:${isPast||isActive?s.color:'#E5E7EB'};flex-shrink:0;${isActive?'box-shadow:0 0 0 4px '+s.color+'33;':''}`;
+    dot.style.cssText = `width:${dotSize}px;height:${dotSize}px;margin-left:${dotMargin}px;border-radius:50%;background:${isPast||isActive?s.color:'#E5E7EB'};flex-shrink:0;${isActive?'box-shadow:0 0 0 4px '+s.color+'33;':''}`;
+
     const lbl = document.createElement('div');
     lbl.style.cssText = `font-size:${isActive?12:11}px;font-weight:${isActive?700:500};color:${isActive?'#111827':'#9CA3AF'};white-space:nowrap;`;
     lbl.textContent = s.label;
-    item.appendChild(dot);
-    item.appendChild(lbl);
-    thermoEl.appendChild(item);
+
+    row.appendChild(dot);
+    row.appendChild(lbl);
+    thermoEl.appendChild(row);
   });
 
   // Ring — reset to 0 so transition fires after screen swap
   const ringEl = document.getElementById('ring-circle');
-  ringEl.className = band.ringCls;
-  ringEl.setAttribute('stroke', ''); // let class handle color
+  // Set stroke color directly based on band
+  const ringColors = {'ring-fill-curious':'#D97706','ring-fill-aware':'#2563EB','ring-fill-capable':'#059669','ring-fill-leader':'#7C3AED'};
+  ringEl.setAttribute('stroke', ringColors[band.ringCls] || '#2563EB');
+  ringEl.style.transition = 'none';
   ringEl.style.strokeDashoffset = '414.69';
 
   document.getElementById('ring-score').textContent = total;
@@ -1585,9 +1600,11 @@ function animateResults() {
   const fraction = Math.min(1, Math.max(0, (state._score - 10) / 40));
   const targetOffset = circumference * (1 - fraction);
 
-  // Double rAF ensures the reset dashoffset is painted before the transition fires
+  // Double rAF: first forces the reset (dashoffset=414.69) to paint,
+  // then re-enables transition and sets the target
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
+      ringEl.style.transition = 'stroke-dashoffset 1s ease';
       ringEl.style.strokeDashoffset = targetOffset;
     });
   });
