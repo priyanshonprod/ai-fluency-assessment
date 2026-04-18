@@ -556,21 +556,66 @@
     }
 
     .hero-eyebrow {
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      color: var(--gray-500);
-      margin-bottom: 6px;
+      color: var(--blue);
+      margin-bottom: 8px;
     }
 
     .hero-title {
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 800;
       color: var(--gray-900);
-      line-height: 1.3;
-      margin-bottom: 10px;
+      line-height: 1.25;
+      margin-bottom: 12px;
     }
+
+    /* Stage thermometer */
+    .stage-thermometer {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-left: 28px;
+      flex-shrink: 0;
+    }
+    .stage-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      padding: 6px 0;
+    }
+    .stage-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 14px;
+      position: relative;
+    }
+    .stage-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gray-200);
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .stage-dot.active { width: 14px; height: 14px; }
+    .stage-line {
+      width: 2px;
+      height: 18px;
+      background: var(--gray-200);
+    }
+    .stage-line.active-line { background: var(--blue); }
+    .stage-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+    .stage-label.active-label { color: var(--gray-900); font-weight: 700; }
 
     /* Ring chart */
     .ring-wrap {
@@ -632,17 +677,29 @@
     }
 
     .meaning-card {
-      background: var(--gray-50);
+      background: var(--white);
       border: 1px solid var(--gray-200);
-      border-radius: 14px;
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
       padding: 24px 28px;
       margin-bottom: 40px;
     }
 
-    .section-title {
-      font-size: 18px;
+    .meaning-label {
+      font-size: 11px;
       font-weight: 700;
-      color: var(--gray-900);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
       margin-bottom: 16px;
     }
 
@@ -656,14 +713,19 @@
     .skill-bars { margin-bottom: 40px; }
 
     .skill-group-label {
+      display: inline-block;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
       text-transform: uppercase;
-      color: var(--gray-400);
+      padding: 4px 12px;
+      border-radius: 4px;
       margin-bottom: 12px;
       margin-top: 24px;
     }
+    .label-strong { background: #D1FAE5; color: #065F46; }
+    .label-mid { background: #DBEAFE; color: #1E40AF; }
+    .label-weak { background: #FEF3C7; color: #92400E; }
 
     .skill-row {
       display: flex;
@@ -674,15 +736,15 @@
 
     .skill-name {
       font-size: 13px;
-      color: var(--gray-700);
+      color: var(--gray-900);
       font-weight: 500;
-      flex: 0 0 220px;
-      text-align: right;
+      flex: 1;
+      text-align: left;
       line-height: 1.3;
     }
 
     .skill-bar-outer {
-      flex: 1;
+      flex: 0 0 180px;
       height: 10px;
       background: var(--gray-100);
       border-radius: 99px;
@@ -709,23 +771,62 @@
 
     /* Transition section */
     .transition-card {
-      background: var(--navy);
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
       border-radius: 16px;
       padding: 32px;
       margin-bottom: 40px;
-      color: var(--white);
+      color: var(--gray-900);
     }
 
-    .transition-title {
-      font-size: 18px;
+    .transition-eyebrow {
+      font-size: 11px;
       font-weight: 700;
-      margin-bottom: 6px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .transition-roles {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .transition-role-pill {
+      padding: 10px 20px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+      background: white;
+    }
+    .transition-role-pill.target {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+    .transition-arrow {
+      font-size: 18px;
+      color: var(--gray-400);
+    }
+
+    .transition-heading {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gray-900);
+      line-height: 1.35;
+      margin-bottom: 8px;
     }
 
     .transition-sub {
       font-size: 14px;
-      color: var(--gray-400);
-      margin-bottom: 24px;
+      color: var(--gray-500);
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
     .transition-label {
@@ -733,7 +834,7 @@
       font-weight: 700;
       letter-spacing: 1.2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: var(--gray-400);
       margin-bottom: 10px;
     }
 
@@ -741,52 +842,56 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     .skill-tag {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 12px 16px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 10px 14px;
       flex: 0 0 calc(50% - 4px);
     }
     .skill-tag-label {
       font-size: 13px;
       font-weight: 700;
-      color: white;
-      margin-bottom: 3px;
+      color: var(--gray-900);
+      margin-bottom: 2px;
     }
     .skill-tag-detail {
       font-size: 11px;
-      color: rgba(255,255,255,0.55);
+      color: var(--gray-500);
       line-height: 1.4;
     }
 
-    .coverage-row { margin-bottom: 24px; }
-
-    .coverage-label-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 8px;
+    .coverage-block {
+      background: var(--blue-light);
+      border: 1px solid #D5D8FF;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
     }
-
-    .coverage-label-row span:first-child { color: rgba(255,255,255,0.6); }
-    .coverage-label-row span:last-child  { font-weight: 700; color: var(--white); }
+    .coverage-text {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    .coverage-text strong { color: var(--gray-900); }
 
     .coverage-bar-outer {
       height: 6px;
-      background: rgba(255,255,255,0.12);
+      background: rgba(57,64,240,0.12);
       border-radius: 99px;
       overflow: hidden;
     }
 
     .coverage-bar-inner {
       height: 100%;
-      width: 96%;
+      width: 0%;
       background: var(--blue);
       border-radius: 99px;
+      transition: width 1s ease;
     }
 
     /* Sticky CTA bar */
@@ -1073,27 +1178,30 @@
   <div class="results-hero">
     <div class="results-hero-inner">
       <div class="hero-left">
-        <div class="hero-eyebrow">AI FLUENCY ASSESSMENT COMPLETE</div>
-        <div class="hero-title" id="results-hero-title">Your AI Fluency Report</div>
+        <div class="hero-eyebrow">YOUR AI FLUENCY SCORE</div>
+        <div class="hero-title" id="results-hero-title">Here's where you stand</div>
         <div id="band-badge-wrap"></div>
       </div>
-      <div class="ring-wrap">
-        <svg viewBox="0 0 160 160" fill="none">
-          <circle cx="80" cy="80" r="66" stroke="#E5E7EB" stroke-width="12"/>
-          <circle id="ring-circle" cx="80" cy="80" r="66"
-            stroke="#2563EB"
-            stroke-width="12"
-            stroke-linecap="round"
-            stroke-dasharray="414.69"
-            stroke-dashoffset="414.69"
-            transform="rotate(-90 80 80)"
-            style="transition: stroke-dashoffset 1s ease;"
-          />
-        </svg>
-        <div class="ring-center">
-          <div class="ring-score" id="ring-score">0</div>
-          <div class="ring-max">/50</div>
+      <div style="display:flex;align-items:center;gap:20px;">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 160 160" fill="none">
+            <circle cx="80" cy="80" r="66" stroke="#E5E7EB" stroke-width="12"/>
+            <circle id="ring-circle" cx="80" cy="80" r="66"
+              stroke="#2563EB"
+              stroke-width="12"
+              stroke-linecap="round"
+              stroke-dasharray="414.69"
+              stroke-dashoffset="414.69"
+              transform="rotate(-90 80 80)"
+              style="transition: stroke-dashoffset 1s ease;"
+            />
+          </svg>
+          <div class="ring-center">
+            <div class="ring-score" id="ring-score">0</div>
+            <div class="ring-max">/50</div>
+          </div>
         </div>
+        <div class="stage-thermometer" id="stage-thermometer"></div>
       </div>
     </div>
   </div>
@@ -1101,7 +1209,7 @@
   <div class="results-body">
 
     <div class="meaning-card">
-      <div class="section-title">What this means</div>
+      <div class="meaning-label">WHAT THIS MEANS</div>
       <p id="meaning-text"></p>
     </div>
 
@@ -1111,23 +1219,27 @@
     </div>
 
     <div class="transition-card">
-      <div class="transition-title" id="transition-title"></div>
-      <div class="transition-sub" id="transition-sub"></div>
-      <div class="transition-label">SKILLS YOU'LL BUILD</div>
+      <div class="transition-eyebrow">WHERE YOU ARE &rarr; WHERE YOU COULD BE</div>
+      <div class="transition-roles">
+        <div class="transition-role-pill" id="trans-from"></div>
+        <div class="transition-arrow">&rarr;</div>
+        <div class="transition-role-pill target" id="trans-to"></div>
+      </div>
+      <div class="transition-heading">To make this transition, you need these skills:</div>
       <div class="skill-tags" id="skill-tags"></div>
-      <div class="coverage-row">
-        <div style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.6;margin-bottom:12px;">
-          <strong style="color:white;">96% of these skills</strong> are covered in the <strong style="color:white;">Scaler Online PGP in Business &amp; AI</strong> curriculum — through live sessions, hands-on projects, and real-world case studies across 12 months.
+      <div class="coverage-block">
+        <div class="coverage-text">
+          <strong>95% of these skills</strong> are covered in the <strong>Scaler Online PGP in Business &amp; AI</strong> curriculum — through live sessions, hands-on projects, and real-world case studies across 12 months.
         </div>
         <div class="coverage-bar-outer">
-          <div class="coverage-bar-inner"></div>
+          <div class="coverage-bar-inner" id="coverage-bar-inner"></div>
         </div>
       </div>
-      <div style="margin-top:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-        <button class="btn-primary" style="margin-top:0;width:auto;padding:0 28px;font-size:12px;" onclick="handleCallbackClick()">
-          REQUEST A CALLBACK &rarr;
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <button class="btn-primary" style="margin-top:0;width:auto;padding:0 28px;font-size:13px;" onclick="handleCallbackClick()">
+          Want to know more? Request a Callback &rarr;
         </button>
-        <a href="https://www.scaler.com/online-pgp-in-business-and-ai" target="_blank" rel="noopener" onclick="handleCurriculumClick()" style="font-size:13px;color:rgba(255,255,255,0.7);text-decoration:underline;cursor:pointer;">
+        <a href="https://www.scaler.com/online-pgp-in-business-and-ai" target="_blank" rel="noopener" onclick="handleCurriculumClick()" style="font-size:13px;color:var(--blue);text-decoration:underline;cursor:pointer;">
           Explore the full curriculum &rarr;
         </a>
       </div>
@@ -1355,7 +1467,37 @@ function buildResultsScreen() {
   // Hero
   const firstName = state.name.split(' ')[0];
   document.getElementById('results-hero-title').textContent =
-    `${firstName}'s AI Fluency Report — ${state.role}`;
+    `Here's where you stand, ${firstName}`;
+
+  // Stage thermometer
+  const stages = [
+    {label:'AI Curious', min:10, max:18, color:'#D97706'},
+    {label:'AI Aware', min:19, max:28, color:'#2563EB'},
+    {label:'AI Capable', min:29, max:38, color:'#059669'},
+    {label:'AI Leader', min:39, max:50, color:'#7C3AED'},
+  ];
+  const thermoEl = document.getElementById('stage-thermometer');
+  thermoEl.innerHTML = '';
+  stages.forEach((s,i) => {
+    const isActive = total >= s.min && total <= s.max;
+    const isPast = total > s.max;
+    // line before (except first)
+    if (i > 0) {
+      const line = document.createElement('div');
+      line.style.cssText = `width:2px;height:16px;margin-left:6px;border-radius:1px;background:${isPast||isActive?s.color:'#E5E7EB'};`;
+      thermoEl.appendChild(line);
+    }
+    const item = document.createElement('div');
+    item.style.cssText = 'display:flex;align-items:center;gap:10px;';
+    const dot = document.createElement('div');
+    dot.style.cssText = `width:${isActive?14:8}px;height:${isActive?14:8}px;border-radius:50%;background:${isPast||isActive?s.color:'#E5E7EB'};flex-shrink:0;${isActive?'box-shadow:0 0 0 4px '+s.color+'33;':''}`;
+    const lbl = document.createElement('div');
+    lbl.style.cssText = `font-size:${isActive?12:11}px;font-weight:${isActive?700:500};color:${isActive?'#111827':'#9CA3AF'};white-space:nowrap;`;
+    lbl.textContent = s.label;
+    item.appendChild(dot);
+    item.appendChild(lbl);
+    thermoEl.appendChild(item);
+  });
 
   // Ring — reset to 0 so transition fires after screen swap
   const ringEl = document.getElementById('ring-circle');
@@ -1388,10 +1530,10 @@ function buildResultsScreen() {
   const barsContainer = document.getElementById('skill-bars-container');
   barsContainer.innerHTML = '';
 
-  function renderGroup(label, items, cls) {
+  function renderGroup(label, items, cls, labelCls) {
     if (!items.length) return;
     const lbl = document.createElement('div');
-    lbl.className = 'skill-group-label';
+    lbl.className = 'skill-group-label ' + (labelCls || '');
     lbl.textContent = label;
     barsContainer.appendChild(lbl);
     items.forEach(item => {
@@ -1409,18 +1551,16 @@ function buildResultsScreen() {
     });
   }
 
-  renderGroup('Strong areas', strong, 'bar-strong');
-  renderGroup('Developing', mid, 'bar-mid');
-  renderGroup('Growth opportunities', weak, 'bar-weak');
+  renderGroup("Where you're strong", strong, 'bar-strong', 'label-strong');
+  renderGroup('Other skills', mid, 'bar-mid', 'label-mid');
+  renderGroup('Where you need work', weak, 'bar-weak', 'label-weak');
 
   // Transition card
   const transRole   = ROLE_TRANSITIONS[state.role] || `AI-Fluent ${state.role}`;
   const transSkills = ROLE_TRANSITION_SKILLS[state.role] || [];
 
-  document.getElementById('transition-title').textContent =
-    `Your transition path: ${transRole}`;
-  document.getElementById('transition-sub').textContent =
-    `Based on your current role and score, here's what the Scaler AI MBA curriculum covers for you.`;
+  document.getElementById('trans-from').textContent = state.role;
+  document.getElementById('trans-to').textContent = transRole;
 
   const tagsEl = document.getElementById('skill-tags');
   tagsEl.innerHTML = '';
@@ -1430,6 +1570,12 @@ function buildResultsScreen() {
     tag.innerHTML = `<div class="skill-tag-label">${escHtml(s.label)}</div><div class="skill-tag-detail">${escHtml(s.detail)}</div>`;
     tagsEl.appendChild(tag);
   });
+
+  // Animate coverage bar
+  setTimeout(() => {
+    const coverageBar = document.getElementById('coverage-bar-inner');
+    if (coverageBar) coverageBar.style.width = '95%';
+  }, 500);
 }
 
 function animateResults() {
