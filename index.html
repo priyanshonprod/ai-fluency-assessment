@@ -373,15 +373,37 @@ body{
 .pitch-heading{
   font-size:22px;font-weight:800;color:var(--gray-900);margin-bottom:10px;letter-spacing:-.3px;line-height:1.3;
 }
-.pitch-sub{font-size:14px;color:var(--gray-500);line-height:1.7;margin-bottom:24px}
-.pitch-bullets{list-style:none;display:flex;flex-direction:column;gap:10px}
-.pitch-bullets li{
-  display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--gray-700);line-height:1.5;
+.transition-skills{
+  display:flex;flex-direction:column;gap:8px;margin-bottom:28px;
 }
-.pitch-bullet-dot{
-  width:6px;height:6px;background:var(--blue);border-radius:50%;
-  margin-top:7px;flex-shrink:0;
+.transition-skill-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 16px;background:var(--gray-50);border-radius:10px;
+  border:1px solid var(--gray-100);
 }
+.transition-skill-num{
+  width:22px;height:22px;border-radius:50%;background:var(--blue);
+  color:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;
+}
+.transition-skill-text{font-size:13px;color:var(--gray-700);line-height:1.55}
+.curriculum-coverage{
+  background:linear-gradient(135deg,#EEF0FF 0%,#E8EBFF 100%);
+  border:1px solid #D5D8FF;border-radius:12px;padding:20px 24px;margin-bottom:28px;
+}
+.coverage-bar-wrap{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.coverage-bar-bg{flex:1;height:10px;background:rgba(255,255,255,.7);border-radius:99px;overflow:hidden}
+.coverage-bar-fill{height:100%;background:var(--blue);border-radius:99px;transition:width 1.2s ease}
+.coverage-pct{font-size:24px;font-weight:800;color:var(--blue);letter-spacing:-1px}
+.coverage-text{font-size:14px;color:var(--gray-700);line-height:1.6}
+.coverage-text strong{color:var(--gray-900)}
+.pitch-cta-row{
+  padding:20px 0 0;border-top:1px solid var(--gray-200);
+}
+.pitch-cta-text{font-size:15px;font-weight:600;color:var(--gray-900);margin-bottom:14px}
+.pitch-cta-links{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.pitch-explore-link{font-size:14px;color:var(--blue);font-weight:600;text-decoration:none}
+.pitch-explore-link:hover{text-decoration:underline}
 
 /* sticky CTA bar */
 .sticky-cta{
@@ -604,19 +626,28 @@ body{
     </div>
 
     <div class="pitch-section" id="pitch-section">
-      <p class="pitch-eyebrow">Where you are &rarr; Where you could be</p>
+      <p class="pitch-eyebrow">Your transition path</p>
       <div class="pitch-arrow">
         <span class="pitch-from" id="pitch-from"></span>
-        <span class="pitch-arrow-icon">&#8594;</span>
+        <span class="pitch-arrow-icon">&rarr;</span>
         <span class="pitch-to" id="pitch-to"></span>
       </div>
-      <p class="pitch-heading">Scaler's Online PGP in Business &amp; AI is a 12-month program that bridges this gap.</p>
-      <p class="pitch-sub">Not theory. Not tutorials. Real frameworks, real projects, real peers.</p>
-      <ul class="pitch-bullets">
-        <li><span class="pitch-bullet-dot"></span>50 professionals per cohort — curated, not mass-enrolled</li>
-        <li><span class="pitch-bullet-dot"></span>Live sessions + hands-on projects, not pre-recorded lectures</li>
-        <li><span class="pitch-bullet-dot"></span>Covers strategy, product, ops, marketing, finance — through an AI lens</li>
-      </ul>
+      <p class="pitch-heading">To make this transition, you'll need to build these skills:</p>
+      <div class="transition-skills" id="transition-skills"></div>
+      <div class="curriculum-coverage">
+        <div class="coverage-bar-wrap">
+          <div class="coverage-bar-bg"><div class="coverage-bar-fill" id="coverage-bar-fill" style="width:0%"></div></div>
+          <span class="coverage-pct" id="coverage-pct">96%</span>
+        </div>
+        <p class="coverage-text">of these skills are covered in the <strong>Scaler Online PGP in Business &amp; AI</strong> curriculum — through live sessions, hands-on projects, and real-world case studies across 12 months.</p>
+      </div>
+      <div class="pitch-cta-row">
+        <p class="pitch-cta-text">Want to know exactly how the program maps to your gaps?</p>
+        <div class="pitch-cta-links">
+          <button class="btn btn-primary" onclick="requestCallback()">Request a Callback &rarr;</button>
+          <a class="pitch-explore-link" href="https://www.scaler.com/online-pgp-in-business-and-ai" target="_blank" rel="noopener">Explore the full curriculum &rarr;</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -707,6 +738,72 @@ const ROLE_TRANSITIONS = {
   "Tech Professional transitioning to Business": "Technical Business Leader",
   "Founder / Entrepreneur": "AI-Native Founder",
   "Finance / Commercial Manager": "AI-Augmented Finance Leader",
+};
+
+const ROLE_TRANSITION_SKILLS = {
+  "Product Manager": [
+    "Write production-grade system prompts and prompt chains for PRD generation, user story creation, and spec review — using Claude, GPT-4, and Gemini",
+    "Build AI-powered research workflows — competitor monitoring agents, NPS synthesis pipelines, and automated customer feedback analysis using Perplexity + Claude",
+    "Spec and ship AI-powered product features — define evaluation criteria, confidence thresholds, fallback behavior, and human-in-the-loop flows",
+    "Design multi-agent systems — orchestrate specialized agents for support triage, bug classification, and research using tool-use and function calling",
+    "Build AI-assisted analytics — write SQL with AI, run cohort analyses, set up churn prediction, and create self-serve dashboards without waiting for the data team",
+    "Create an AI productivity OS — auto-generate meeting briefs, sprint reviews, stakeholder updates, and competitive reports from raw data sources",
+    "Lead AI adoption in your product org — build prompt playbooks, define AI tool policies, run training, and measure team-wide productivity impact",
+  ],
+  "Marketing / Growth Manager": [
+    "Generate high-converting ad copy at scale — use AI to produce 50+ platform-specific variations (Google, Meta, LinkedIn) with ICP targeting, tone control, and character limits",
+    "Build AI-powered campaign planning — feed historical ROAS data, audience segments, and market signals to generate prioritized campaign plans with budget allocation",
+    "Run AI-assisted CRO — audit landing pages with AI, generate test hypotheses from heatmap data, and build an experiment velocity that compounds learnings month-over-month",
+    "Design AI content engines — from SEO-driven briefs to first draft to social repurposing to email teasers, all in your brand voice with 60% lower cost per piece",
+    "Build creative intelligence workflows — analyze top-performing ads, extract winning patterns (hooks, CTAs, imagery), and auto-generate data-backed creative briefs",
+    "Automate email & lifecycle marketing — AI-generated personalized sequences, dynamic content blocks based on behavior signals, and optimized send times",
+    "Master marketing analytics with AI — paste multi-channel data into Claude, get instant ROAS breakdowns, anomaly flags, and reallocation recommendations in 30 minutes instead of a day",
+  ],
+  "Business / Strategy Consultant": [
+    "Build AI-powered client research — ingest annual reports, competitor filings, and market data to generate structured analysis decks in hours instead of weeks",
+    "Apply strategy frameworks with AI — prompt chains for Porter's Five Forces, SWOT, value chain analysis that produce first-draft strategy decks in half the time",
+    "Build financial models with AI — generate assumption frameworks, revenue build-ups, sensitivity analyses, and board-ready financial narratives from raw data",
+    "Systematize deliverable production — AI generates storyboards from project briefs, executive summaries from analyses, and 50-page reports in 4 days instead of 2 weeks",
+    "Run AI-powered market sizing — bottom-up and top-down models with multiple estimation approaches, confidence intervals, and source-tracked comparable benchmarks",
+    "Build interview synthesis pipelines — transcription → theme extraction → cross-interview pattern analysis → structured findings report with supporting quotes",
+    "Create competitive intelligence workflows — AI monitors competitor moves, hiring patterns, pricing changes, and auto-generates weekly intelligence briefs with strategic implications",
+  ],
+  "Operations / Supply Chain Manager": [
+    "Build AI-powered demand forecasting — multi-variable models with seasonality, promotions, and external factors that improve forecast accuracy by 10-15%",
+    "Run AI-assisted process optimization — feed cycle times, throughput, and defect rates into AI for bottleneck identification, root cause analysis, and improvement recommendations",
+    "Automate supplier evaluation with AI — generate performance scorecards, risk assessments, negotiation strategies, and contract terms from vendor data",
+    "Optimize inventory with AI — dynamic safety stock calculations, ABC-XYZ analysis, dead stock identification, and predictive stockout alerts across thousands of SKUs",
+    "Build logistics optimization workflows — AI-generated load plans, carrier selection, route optimization considering real-time constraints, saving 10-15% on freight",
+    "Systematize quality management — AI monitors quality KPIs, predicts risks from process parameters, generates corrective action plans, and auto-drafts compliance docs",
+    "Automate operational reporting — AI ingests raw KPI data and produces narrative summaries with trend analysis, exception highlights, and recommendations in 30 minutes",
+  ],
+  "Tech Professional transitioning to Business": [
+    "Master AI-powered business communication — feed technical details and get executive-quality strategy narratives, board decks, and business cases automatically",
+    "Build financial fluency with AI — analyze P&Ls, calculate unit economics, model CAC/LTV, and prepare business reviews using Claude as your virtual CFO tutor",
+    "Develop product thinking with AI — generate competitive analyses, write mini-PRDs, create proposals with market sizing, user segmentation, and success metrics",
+    "Build business cases for technical projects — model ROI, calculate payback periods, and articulate business value in terms leadership cares about (revenue, cost, risk)",
+    "Learn cross-functional operations with AI — analyze marketing campaigns, understand sales pipelines, and learn ops workflows to contribute meaningfully in any meeting",
+    "Create stakeholder management systems — AI-generated meeting briefs, objection anticipation, influence mapping, and tailored communication per audience",
+    "Bridge tech and business with prompt engineering — translate architecture decisions into business impact, convert sprint outputs into stakeholder updates, generate business cases from specs",
+  ],
+  "Founder / Entrepreneur": [
+    "Build AI-powered GTM — generate positioning frameworks, channel strategies, launch messaging per platform, PR pitches, and landing page copy from a single brief",
+    "Systematize investor communication with AI — auto-generate monthly updates from metrics, board prep docs, pitch deck narratives, and Q&A prep that anticipates investor concerns",
+    "Run AI-powered hiring — generate JDs, screening rubrics, outreach messages, interview scorecards, performance reviews, and onboarding materials 2x faster",
+    "Build financial planning with AI — revenue projections, scenario planning, cash flow forecasts, and sensitivity analysis with the rigor of a startup twice your size",
+    "Accelerate product development — AI-generated user stories from customer interviews, impact/effort prioritization, specs developers can build from, and release notes",
+    "Systematize customer development — AI synthesizes call notes into patterns, generates discovery questions per segment, drafts proposals, and identifies churn signals",
+    "Build a scalable operating system — AI generates SOPs, vendor evaluation frameworks, contracts, compliance checklists, and operational dashboards from your ad-hoc processes",
+  ],
+  "Finance / Commercial Manager": [
+    "Accelerate financial modeling with AI — generate model structures, Excel formulas, scenario frameworks, and sensitivity analysis templates in half the time",
+    "Build dynamic forecasting — AI monitors actuals vs. budget in real-time, adjusts rolling forecasts, flags material variances before month-end, and generates management commentary",
+    "Run AI-powered deal analysis — model deal economics under different scenarios, benchmark pricing against market data, generate term sheet analyses and approval docs",
+    "Automate compliance workflows — AI monitors regulatory changes, assesses business impact, generates compliance action plans, audit checklists, and policy updates",
+    "Systematize management reporting — AI auto-generates reports from raw data with narrative commentaries, trend analyses, and different versions for board, exec, and ops audiences",
+    "Build treasury management with AI — dynamic cash flow models factoring receivable aging, payable schedules, seasonal patterns, and short-term liquidity projections",
+    "Run AI-powered cost management — automated spend analytics, vendor risk monitoring, procurement benchmarking, and negotiation strategies from contract and spend data",
+  ],
 };
 
 const ROLE_SKILLS = {
@@ -1682,7 +1779,7 @@ function renderResults(){
       row.innerHTML=`
         <span class="skill-bar-name">${item.name}</span>
         <div class="skill-bar-track"><div class="skill-bar-fill ${fillCls}" style="width:0%" data-w="${pct}"></div></div>
-        <span class="skill-bar-level">L${item.score}</span>`;
+        <span class="skill-bar-level">${item.score}/5</span>`;
       container.appendChild(row);
     });
   }
@@ -1697,9 +1794,22 @@ function renderResults(){
     });
   },200);
 
-  // career pitch
+  // career pitch — transition skills
   document.getElementById('pitch-from').textContent=state.role;
   document.getElementById('pitch-to').textContent=ROLE_TRANSITIONS[state.role]||'AI-First Professional';
+  const transSkills=ROLE_TRANSITION_SKILLS[state.role]||[];
+  const transContainer=document.getElementById('transition-skills');
+  transContainer.innerHTML='';
+  transSkills.forEach((skill,i)=>{
+    const item=document.createElement('div');
+    item.className='transition-skill-item';
+    item.innerHTML=`<span class="transition-skill-num">${i+1}</span><span class="transition-skill-text">${skill}</span>`;
+    transContainer.appendChild(item);
+  });
+  // animate coverage bar
+  setTimeout(()=>{
+    document.getElementById('coverage-bar-fill').style.width='96%';
+  },400);
 
   // send to sheet
   sendToSheet(state.name,'91'+state.phone,state.role,total,band.label,skills,state.answers);
