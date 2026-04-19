@@ -38,39 +38,226 @@
     .screen { display: none; }
     .screen.active { display: flex; }
 
-    /* ── LOGIN LAYOUT (centered form) ── */
+    /* ── LOGIN LAYOUT (two-column full-screen) ── */
     .login-screen {
       min-height: 100vh;
       width: 100%;
+      flex-direction: row;
+      align-items: stretch;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    /* Left column */
+    .login-left {
+      width: 55%;
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0F1629 0%, #1a2040 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 40px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Subtle grid pattern overlay on left panel */
+    .login-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .login-left-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-left-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .login-heading {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.18;
+      margin-bottom: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .login-subheading {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.65;
+      max-width: 400px;
+      margin-bottom: 36px;
+    }
+
+    .login-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 32px;
+    }
+
+    /* Value props 2x2 grid */
+    .login-props {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 32px;
+    }
+
+    .login-prop {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .login-prop-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      opacity: 0.6;
+    }
+
+    .login-prop-text {}
+
+    .login-prop-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 4px;
+      line-height: 1.3;
+    }
+
+    .login-prop-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.55;
+    }
+
+    /* Right column */
+    .login-right {
+      width: 45%;
+      background: #ffffff;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      background: var(--gray-50);
+      justify-content: center;
+      padding: 48px 48px;
+      position: relative;
     }
 
-    .login-header {
+    .login-form-inner {
       width: 100%;
-      background: var(--navy);
-      padding: 32px 32px 48px;
+      max-width: 400px;
+    }
+
+    .login-form-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .login-form-sub {
+      font-size: 14px;
+      color: var(--gray-400);
+      margin-bottom: 28px;
+    }
+
+    .login-powered {
+      position: absolute;
+      bottom: 24px;
+      left: 0; right: 0;
       text-align: center;
+      font-size: 11px;
+      color: var(--gray-400);
     }
-    .login-header .logo-bar { justify-content: center; margin-bottom: 24px; }
-    .login-header .panel-title { color: white; font-size: 28px; margin-bottom: 8px; }
-    .login-header .panel-desc { color: var(--gray-400); max-width: 500px; margin: 0 auto 20px; font-size: 14px; line-height: 1.6; }
-    .login-header .login-pills {
-      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
-    }
-    .login-pill {
-      display: flex; align-items: center; gap: 6px;
-      font-size: 13px; color: rgba(255,255,255,0.7); font-weight: 500;
-    }
-    .login-pill svg { flex-shrink: 0; }
 
-    .login-form-wrap {
-      width: 100%;
-      max-width: 440px;
-      padding: 0 24px;
-      margin-top: -24px;
+    /* Override shared form-group styles for login context */
+    .login-form-inner .form-group {
+      margin-bottom: 16px;
     }
+
+    .login-form-inner .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+    }
+
+    .login-form-inner .form-group input {
+      height: 50px;
+      font-size: 15px;
+      border-radius: 10px;
+      padding: 0 16px;
+      border: 1.5px solid #E5E7EB;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .login-form-inner .form-group input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(57,64,240,0.1);
+    }
+
+    .login-form-inner .phone-prefix {
+      height: 50px;
+      border-radius: 10px;
+    }
+
+    .login-form-inner .btn-primary {
+      height: 52px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      border-radius: 10px;
+      margin-top: 24px;
+      transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+    }
+
+    .login-form-inner .btn-primary:hover {
+      background: #2c32d4;
+      box-shadow: 0 4px 16px rgba(57,64,240,0.3);
+    }
+
+    .login-form-inner .form-footer {
+      font-size: 11px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    /* Kept for backward compat — login-header and login-form-wrap
+       are no longer in the DOM but class selectors must not conflict */
+    .login-header { display: none; }
+    .login-form-wrap { display: none; }
 
     /* ── SPLIT LAYOUT (role screen) ── */
     .split {
@@ -987,9 +1174,43 @@
     @media (max-width: 768px) {
       .screen.active { flex-direction: column; }
 
-      .login-header { padding: 24px 20px 40px; }
-      .login-header .panel-title { font-size: 22px; }
-      .login-form-wrap { padding: 0 16px; margin-top: -20px; }
+      /* Login screen mobile: stacked */
+      .login-screen { flex-direction: column; min-height: 100vh; overflow: auto; }
+
+      .login-left {
+        width: 100%;
+        min-height: auto;
+        padding: 28px 24px 24px;
+      }
+
+      .login-left-content { justify-content: flex-start; }
+
+      .login-eyebrow { display: none; }
+
+      .login-heading {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .login-subheading {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+      .login-divider { display: none; }
+      .login-props { display: none; }
+
+      .login-right {
+        width: 100%;
+        padding: 28px 20px 64px;
+        justify-content: flex-start;
+      }
+
+      .login-form-inner { max-width: 100%; }
+
+      .login-form-title { font-size: 20px; }
+
+      .login-powered { bottom: 16px; }
 
       .split-left {
         width: 100%;
@@ -1032,43 +1253,76 @@
 ══════════════════════════════════════════════════════ -->
 <div id="screen-login" class="screen login-screen active">
 
-  <div class="login-header">
-    <div class="logo-bar">
-      <img src="scaler-logo-white.svg" alt="Scaler" height="26" />
+  <!-- Left column: brand + value props -->
+  <div class="login-left">
+    <div class="login-left-logo">
+      <img src="scaler-logo-white.svg" alt="Scaler" height="24" />
       <div class="logo-divider"></div>
-      <span class="logo-sub">AI Fluency Assessment</span>
+      <span class="logo-sub">AI Fluency</span>
     </div>
-    <div class="panel-title">How AI-ready are you?</div>
-    <p class="panel-desc">Take a 3-minute assessment tailored to your role. Get your score, see your gaps, and find out what to learn next.</p>
-    <div class="login-pills">
-      <div class="login-pill">
-        <svg width="14" height="14" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.5 8L11 1" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        10 skill areas
-      </div>
-      <div class="login-pill">
-        <svg width="14" height="14" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.5 8L11 1" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        3 minutes
-      </div>
-      <div class="login-pill">
-        <svg width="14" height="14" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.5 8L11 1" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Instant results
-      </div>
-      <div class="login-pill">
-        <svg width="14" height="14" viewBox="0 0 12 9" fill="none"><path d="M1 4.5L4.5 8L11 1" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Free
+
+    <div class="login-left-content">
+      <div class="login-eyebrow">FREE &middot; 3 MINUTES &middot; 10 SKILLS</div>
+      <div class="login-heading">Find out how AI-ready you really are.</div>
+      <p class="login-subheading">Most professionals think they're keeping up with AI. This assessment shows you exactly where you stand — and what's missing.</p>
+
+      <div class="login-divider"></div>
+
+      <div class="login-props">
+
+        <div class="login-prop">
+          <svg class="login-prop-icon" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="8" stroke="white" stroke-width="1.5"/>
+            <path d="M7 10l2 2 4-4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="login-prop-text">
+            <div class="login-prop-title">Skill Gap Analysis</div>
+            <div class="login-prop-desc">See exactly where you're strong and where you're falling behind</div>
+          </div>
+        </div>
+
+        <div class="login-prop">
+          <svg class="login-prop-icon" viewBox="0 0 20 20" fill="none">
+            <rect x="3" y="3" width="14" height="14" rx="3" stroke="white" stroke-width="1.5"/>
+            <path d="M7 7h6M7 10h4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="login-prop-text">
+            <div class="login-prop-title">Role-Specific Questions</div>
+            <div class="login-prop-desc">Tailored to your actual job — PM, marketing, ops, finance, founder</div>
+          </div>
+        </div>
+
+        <div class="login-prop">
+          <svg class="login-prop-icon" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10h12M10 4l6 6-6 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="login-prop-text">
+            <div class="login-prop-title">Career Transition Path</div>
+            <div class="login-prop-desc">See your AI-upgraded role and the skills to get there</div>
+          </div>
+        </div>
+
+        <div class="login-prop">
+          <svg class="login-prop-icon" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="white" stroke-width="1.5"/>
+            <path d="M10 6v4l3 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <div class="login-prop-text">
+            <div class="login-prop-title">Curriculum Match</div>
+            <div class="login-prop-desc">95% of identified gaps map to a structured learning path</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <div class="login-form-wrap">
-    <div class="form-card">
-      <div class="form-icon">
-        <svg viewBox="0 0 26 26" fill="none">
-          <circle cx="13" cy="9" r="5" stroke="#3940F0" stroke-width="2"/>
-          <path d="M4 22c0-4.418 4.03-8 9-8s9 3.582 9 8" stroke="#3940F0" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="form-title">Start Your Assessment</div>
+  <!-- Right column: form -->
+  <div class="login-right">
+    <div class="login-form-inner">
+      <div class="login-form-title">Start your assessment</div>
+      <div class="login-form-sub">Takes 3 minutes. Results are instant.</div>
+
       <form id="login-form" onsubmit="handleLogin(event)">
         <div class="form-group">
           <label for="inp-name">Full Name</label>
@@ -1087,8 +1341,11 @@
         </div>
         <button type="submit" class="btn-primary">START ASSESSMENT &rarr;</button>
       </form>
-      <p class="form-footer">Your data is secure and never shared.</p>
+
+      <p class="form-footer">Your information is secure and never shared with third parties.</p>
     </div>
+
+    <div class="login-powered">Powered by Scaler</div>
   </div>
 
 </div>
