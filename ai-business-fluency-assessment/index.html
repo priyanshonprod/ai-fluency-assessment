@@ -1388,14 +1388,53 @@ function generateUUID() {
   });
 }
 
+function getIST() {
+  const now = new Date();
+  const ist = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+  const date = ist.toISOString().split('T')[0]; // YYYY-MM-DD
+  const time = ist.toISOString().split('T')[1].split('.')[0]; // HH:MM:SS
+  return { timestamp_ist: date + ' ' + time, date_ist: date, time_ist: time };
+}
+
+function getUTMParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get('utm_source') || '',
+    utm_medium: params.get('utm_medium') || '',
+    utm_campaign: params.get('utm_campaign') || '',
+    utm_term: params.get('utm_term') || '',
+    utm_content: params.get('utm_content') || '',
+  };
+}
+
+function getTrafficSource() {
+  const ref = document.referrer || '';
+  const utmSource = new URLSearchParams(window.location.search).get('utm_source') || '';
+  if (utmSource) return utmSource;
+  if (!ref) return 'direct';
+  if (ref.includes('google')) return 'google';
+  if (ref.includes('facebook') || ref.includes('fb.com') || ref.includes('instagram')) return 'meta';
+  if (ref.includes('linkedin')) return 'linkedin';
+  if (ref.includes('twitter') || ref.includes('x.com')) return 'twitter';
+  if (ref.includes('whatsapp') || ref.includes('wa.me')) return 'whatsapp';
+  if (ref.includes('t.me') || ref.includes('telegram')) return 'telegram';
+  if (ref.includes('youtube')) return 'youtube';
+  try { return new URL(ref).hostname; } catch(e) { return ref.substring(0, 50); }
+}
+
 function trackEvent(eventType, data = {}) {
+  const ist = getIST();
+  const utm = getUTMParams();
   const payload = {
     user_id: state.userId,
     event: eventType,
-    timestamp: new Date().toISOString(),
+    ...ist,
     name: state.name || '',
     email: state.email || '',
     phone: state.phone || '',
+    referrer: document.referrer || '',
+    traffic_source: getTrafficSource(),
+    ...utm,
     ...data
   };
   fetch(SHEET_WEBHOOK, {
